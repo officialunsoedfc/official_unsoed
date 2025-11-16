@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFC UNSOED - STRUKTUR ELITE DIVISI</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Palet Warna Konsisten dari index.html */
+        :root {
+            --ufc-white: #ffffff;
+            --ufc-cream: #f8f9fa;
+            --ufc-light-gray: #e9ecef;
+            --ufc-green: #2e8b57;
+            --ufc-light-green: #3cb371;
+            --ufc-gold: #daa520;
+            --ufc-dark-gold: #b8860b;
+            --ufc-text: #2d3748;
+            --ufc-text-light: #4a5568;
+        }
+        
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .bg-ufc-cream { background-color: var(--ufc-cream); }
+        .bg-ufc-light-gray { background-color: var(--ufc-light-gray); }
+        .bg-ufc-green { background-color: var(--ufc-green); }
+        .text-ufc-gold { color: var(--ufc-gold); }
+        .text-ufc-primary { color: var(--ufc-text); }
+        .text-ufc-secondary { color: var(--ufc-text-light); }
+        .border-ufc-gold { border-color: var(--ufc-gold); }
+        .border-ufc-green { border-color: var(--ufc-green); }
+        
+        /* === 1. HEADER DINAMIS (Sama seperti index.html) === */
+        .header-transparent {
+            background-color: transparent;
+            transition: all 0.3s ease-in-out;
+        }
+        .header-transparent .nav-link {
+            color: var(--ufc-white);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .header-transparent .nav-link:hover { color: var(--ufc-white); }
+        .header-transparent .nav-link::after { background: var(--ufc-white); }
+        
+        .header-scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid var(--ufc-green);
+            transition: all 0.3s ease-in-out;
+        }
+        .header-scrolled .nav-link {
+            color: var(--ufc-text-light);
+            text-shadow: none;
+        }
+        .header-scrolled .nav-link:hover { color: var(--ufc-green); }
+        .header-scrolled .nav-link::after { background: var(--ufc-green); }
+
+        .nav-link {
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after, .nav-link-active::after {
+            width: 100%;
+        }
+
+        /* === 2. HERO PARALLAX (Sama seperti index.html) === */
+        .hero-bg {
+            background-image: 
+                linear-gradient(135deg, rgba(46, 139, 87, 0.7) 0%, rgba(218, 165, 32, 0.5) 100%),
+                url('img/utama.webp');
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Panah Scroll Down */
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+        .scroll-down-arrow svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Tombol Glow */
+        .glow-btn {
+            background: linear-gradient(135deg, var(--ufc-gold) 0%, var(--ufc-dark-gold) 100%);
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        /* Card & Border (Sama seperti index.html) */
+        .card-hover {
+            transition: all 0.4s ease;
+            background: var(--ufc-white);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--ufc-light-gray);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .gradient-border {
+            position: relative;
+            background: var(--ufc-white);
+            padding: 1px;
+            border-radius: 12px;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--ufc-gold), var(--ufc-green));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        /* 3. EFEK 3D TILT */
+        .card-3d-wrapper {
+            perspective: 1000px;
+        }
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+        .card-3d:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Gradients */
+        .section-gradient-1 {
+            background: linear-gradient(135deg, var(--ufc-cream) 0%, var(--ufc-light-gray) 100%);
+        }
+        
+        .section-gradient-2 {
+            background: linear-gradient(135deg, var(--ufc-light-gray) 0%, var(--ufc-white) 100%);
+        }
+        
+        .section-gradient-3 {
+            background: linear-gradient(135deg, var(--ufc-white) 0%, var(--ufc-cream) 100%);
+        }
+        
+        .section-gradient-4 {
+            background: linear-gradient(135deg, var(--ufc-green) 0%, var(--ufc-light-green) 100%);
+        }
+        
+        .section-gradient-5 {
+            background: linear-gradient(135deg, var(--ufc-cream) 0%, var(--ufc-white) 100%);
+        }
+        
+        /* Floating Elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 15px); }
+            100% { transform: translate(0, -0px); }
+        }
+        
+        /* Logo Navbar */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+        
+        /* Footer Links */
+        .footer-links a {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--ufc-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Icon Divisi Emas */
+        .icon-divisi {
+            color: var(--ufc-gold);
+            filter: drop-shadow(0 4px 10px rgba(218, 165, 32, 0.5));
+        }
+
+        /* Card Mewah (Ditingkatkan) */
+        .luxury-card {
+            transition: all 0.5s ease-in-out;
+            background: linear-gradient(145deg, var(--ufc-white), var(--ufc-cream));
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--ufc-light-gray);
+            position: relative;
+            z-index: 10;
+        }
+
+        .luxury-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(135deg, var(--ufc-gold) 0%, var(--ufc-green) 100%);
+            z-index: -1;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .luxury-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(46, 139, 87, 0.3);
+        }
+        
+        .luxury-card:hover::before {
+            opacity: 1;
+        }
+        
+        .card-inner {
+            background-color: var(--ufc-white);
+            border-radius: 12px;
+            padding: 2.5rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* ========== PERBAIKAN RESPONSIVITAS MOBILE ========== */
+        
+        /* Mobile Responsive - Lebih Komprehensif */
+        @media (max-width: 768px) {
+            /* Hero Section Mobile */
+            .mobile-title {
+                font-size: 2.5rem !important; 
+                line-height: 1.1;
+                margin-bottom: 1rem !important;
+            }
+            
+            .hero-bg {
+                background-attachment: scroll;
+                height: 80vh;
+                min-height: 500px;
+            }
+            
+            .scroll-down-arrow {
+                bottom: 1.5rem;
+                width: 35px;
+                height: 35px;
+            }
+            
+            .scroll-down-arrow svg {
+                width: 20px;
+                height: 20px;
+            }
+            
+            /* Header Mobile */
+            #main-header .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .logo-image {
+                height: 40px;
+            }
+            
+            /* Card Divisi Mobile */
+            .luxury-card {
+                margin-bottom: 1.5rem;
+            }
+            
+            .card-inner {
+                padding: 1.5rem !important;
+            }
+            
+            .icon-divisi {
+                font-size: 4rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .card-inner h3 {
+                font-size: 1.5rem !important;
+                margin-bottom: 0.5rem !important;
+            }
+            
+            .card-inner p.text-lg {
+                font-size: 1rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .card-inner p.text-ufc-secondary {
+                font-size: 0.9rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* Grid Layout Mobile */
+            .grid-cols-1 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .sm\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .lg\:col-span-1, .lg\:col-span-3 {
+                grid-column: 1 !important;
+            }
+            
+            .sm\:col-span-2 {
+                grid-column: 1 !important;
+            }
+            
+            /* Section Padding Mobile */
+            section {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            .py-24 {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            .py-20 {
+                padding-top: 2.5rem !important;
+                padding-bottom: 2.5rem !important;
+            }
+            
+            .py-16 {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+            
+            /* Typography Mobile */
+            h2.text-5xl {
+                font-size: 2rem !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            h2.text-4xl {
+                font-size: 1.75rem !important;
+            }
+            
+            .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .text-xl {
+                font-size: 1.1rem !important;
+            }
+            
+            .text-lg {
+                font-size: 1rem !important;
+            }
+            
+            /* Stats Section Mobile */
+            .stat-number {
+                font-size: 2.5rem !important;
+            }
+            
+            /* Footer Mobile */
+            .footer-links p {
+                font-size: 0.9rem;
+            }
+            
+            .footer-links .flex.items-center {
+                align-items: flex-start !important;
+            }
+            
+            .footer-links .flex.items-center i {
+                margin-top: 0.25rem;
+            }
+            
+            /* Container Padding Mobile */
+            .container {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            .px-4 {
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+            
+            .px-6 {
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
+            }
+            
+            /* Button Mobile */
+            .glow-btn {
+                padding: 0.75rem 1.5rem !important;
+                font-size: 1rem !important;
+            }
+            
+            /* Gap Mobile */
+            .gap-10 {
+                gap: 1.5rem !important;
+            }
+            
+            .gap-8 {
+                gap: 1rem !important;
+            }
+            
+            /* Max Width Mobile */
+            .max-w-xl {
+                max-width: 100% !important;
+            }
+            
+            .max-w-4xl {
+                max-width: 100% !important;
+            }
+        }
+        
+        /* Extra Small Devices */
+        @media (max-width: 480px) {
+            .mobile-title {
+                font-size: 2rem !important;
+            }
+            
+            .hero-bg {
+                height: 70vh;
+                min-height: 450px;
+            }
+            
+            .card-inner {
+                padding: 1.25rem !important;
+            }
+            
+            .icon-divisi {
+                font-size: 3.5rem !important;
+            }
+            
+            section {
+                padding-top: 2rem !important;
+                padding-bottom: 2rem !important;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .luxury-card:hover {
+                transform: none;
+            }
+            
+            .luxury-card:hover::before {
+                opacity: 0;
+            }
+            
+            .glow-btn:hover {
+                transform: none;
+                box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            }
+            
+            .card-hover:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-ufc-cream font-poppins text-ufc-primary">
+
+    <header id="main-header" class="sticky top-0 z-50 header-transparent">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <a href="index.html" class="logo-container z-10">
+                <!-- Ganti src dengan path logo UFC Anda -->
+                <img src="img/logo.png" alt="UFC UNSOED Logo" class="logo-image">
+            </a>
+            
+            <button id="hamburger" class="md:hidden text-ufc-green focus:outline-none p-2 rounded hover:bg-ufc-light-gray transition duration-300 z-10">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            
+            <div class="hidden md:flex space-x-10">
+                <a href="divisi.html" class="nav-link nav-link-active font-semibold text-lg">DIVISI</a>
+                <a href="prestasi.html" class="nav-link font-semibold text-lg">PRESTASI</a>
+                <a href="index.html#sejarah" class="nav-link font-semibold text-lg">SEJARAH</a>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-ufc-white py-3 transition-all duration-300 ease-in-out border-b border-ufc-light-gray shadow-lg">
+            <a href="divisi.html" class="block py-3 px-6 text-ufc-green bg-ufc-light-gray font-semibold transition duration-300 border-b border-ufc-light-gray">DIVISI</a>
+            <a href="prestasi.html" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300 border-b border-ufc-light-gray">PRESTASI</a>
+            <a href="index.html#sejarah" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300">SEJARAH</a>
+        </div>
+    </header>
+
+    <section class="hero-bg h-screen flex items-center justify-center text-center relative">
+        <div class="max-w-4xl px-6 relative z-10">
+            <h1 class="text-6xl mobile-title md:text-8xl font-playfair font-black mb-4 text-white tracking-wider drop-shadow-lg" data-aos="fade-up" data-aos-duration="1200">
+                STRUKTUR KEPENGURUSAN
+            </h1>
+            <p class="text-xl md:text-3xl font-light italic mb-10 text-white drop-shadow-md" data-aos="fade-up" data-aos-delay="400">
+                Penggerak utama organisasi yang menjalankan sistem profesional untuk mencapai puncak prestasi.
+            </p>
+            <a href="#divisi" class="bg-ufc-gold text-white font-extrabold py-4 px-12 rounded-full text-xl shadow-2xl glow-btn" data-aos="fade-up" data-aos-delay="600">
+                JELAJAHI DIVISI
+            </a>
+        </div>
+        <a href="#divisi" class="scroll-down-arrow" aria-label="Scroll down">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+        </a>
+    </section>
+
+    <section id="divisi" class="py-24 section-gradient-1">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-5xl font-playfair font-bold text-center mb-16 text-ufc-green drop-shadow" data-aos="fade-down">DIVISI PEMENANG</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+
+                <div class="lg:col-span-1" data-aos="fade-up" data-aos-delay="100">
+                    <div class="luxury-card shadow-lg md:shadow-2xl">
+                        <a href="bph.html" class="card-inner">
+                            <span class="text-6xl md:text-8xl mb-4 icon-divisi floating"><i class="fas fa-crown"></i></span>
+                            <h3 class="text-2xl md:text-3xl font-playfair font-bold mb-2 text-ufc-primary">BPH</h3>
+                            <p class="text-base md:text-lg font-semibold text-ufc-green mb-4">The Command Center</p>
+                            <p class="text-sm md:text-base text-ufc-secondary mb-6">
+                                Pemimpin dan regulator tertinggi, memastikan setiap divisi selaras dengan visi kejuaraan klub.
+                            </p>
+                            <span class="font-extrabold text-ufc-gold border-b-2 border-ufc-gold pb-1 hover:border-ufc-green transition duration-300">JELAJAHI DETAIL &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-1" data-aos="fade-up" data-aos-delay="200">
+                    <div class="luxury-card shadow-lg md:shadow-xl">
+                        <a href="kepelatihan.html" class="card-inner">
+                            <span class="text-6xl md:text-8xl mb-4 icon-divisi floating"><i class="fas fa-futbol"></i></span>
+                            <h3 class="text-2xl md:text-3xl font-playfair font-bold mb-2 text-ufc-primary">Kepelatihan</h3>
+                            <p class="text-base md:text-lg font-semibold text-ufc-green mb-4">Tactical Genius</p>
+                            <p class="text-sm md:text-base text-ufc-secondary mb-6">
+                                Mengembangkan filosofi permainan dan menerapkan program latihan berstandar atlet.
+                            </p>
+                            <span class="font-extrabold text-ufc-gold border-b-2 border-ufc-gold pb-1 hover:border-ufc-green transition duration-300">JELAJAHI DETAIL &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-1" data-aos="fade-up" data-aos-delay="300">
+                    <div class="luxury-card shadow-lg md:shadow-xl">
+                        <a href="psdm.html" class="card-inner">
+                            <span class="text-6xl md:text-8xl mb-4 icon-divisi floating"><i class="fas fa-star"></i></span>
+                            <h3 class="text-2xl md:text-3xl font-playfair font-bold mb-2 text-ufc-primary">PSDM</h3>
+                            <p class="text-base md:text-lg font-semibold text-ufc-green mb-4">Talent Architect</p>
+                            <p class="text-sm md:text-base text-ufc-secondary mb-6">
+                                Menciptakan lingkungan suportif, melakukan kaderisasi, dan meningkatkan kualitas keanggotaan.
+                            </p>
+                            <span class="font-extrabold text-ufc-gold border-b-2 border-ufc-gold pb-1 hover:border-ufc-green transition duration-300">JELAJAHI DETAIL &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-1" data-aos="fade-up" data-aos-delay="400">
+                    <div class="luxury-card shadow-lg md:shadow-xl">
+                        <a href="public_relasi.html" class="card-inner">
+                            <span class="text-6xl md:text-8xl mb-4 icon-divisi floating"><i class="fas fa-handshake"></i></span>
+                            <h3 class="text-2xl md:text-3xl font-playfair font-bold mb-2 text-ufc-primary">Public & Relasi</h3>
+                            <p class="text-base md:text-lg font-semibold text-ufc-green mb-4">The Bridge Builder</p>
+                            <p class="text-sm md:text-base text-ufc-secondary mb-6">
+                                Menguatkan jaringan dengan alumni, universitas, dan mitra strategis untuk kemajuan UKM.
+                            </p>
+                            <span class="font-extrabold text-ufc-gold border-b-2 border-ufc-gold pb-1 hover:border-ufc-green transition duration-300">JELAJAHI DETAIL &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-1" data-aos="fade-up" data-aos-delay="500">
+                    <div class="luxury-card shadow-lg md:shadow-xl">
+                        <a href="media_kreatif.html" class="card-inner">
+                            <span class="text-6xl md:text-8xl mb-4 icon-divisi floating"><i class="fas fa-palette"></i></span>
+                            <h3 class="text-2xl md:text-3xl font-playfair font-bold mb-2 text-ufc-primary">Media & Kreatif</h3>
+                            <p class="text-base md:text-lg font-semibold text-ufc-green mb-4">Image Creator</p>
+                            <p class="text-sm md:text-base text-ufc-secondary mb-6">
+                                Membangun *branding* digital yang *powerful* dan mendokumentasikan setiap kisah juara.
+                            </p>
+                            <span class="font-extrabold text-ufc-gold border-b-2 border-ufc-gold pb-1 hover:border-ufc-green transition duration-300">JELAJAHI DETAIL &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-1" data-aos="fade-up" data-aos-delay="600">
+                    <div class="luxury-card shadow-lg md:shadow-xl">
+                        <a href="kewirausahaan.html" class="card-inner">
+                            <span class="text-6xl md:text-8xl mb-4 icon-divisi floating"><i class="fas fa-chart-line"></i></span>
+                            <h3 class="text-2xl md:text-3xl font-playfair font-bold mb-2 text-ufc-primary">Kewirausahaan</h3>
+                            <p class="text-base md:text-lg font-semibold text-ufc-green mb-4">Financial Engine</p>
+                            <p class="text-sm md:text-base text-ufc-secondary mb-6">
+                                Mencari dan mengelola sumber daya finansial secara inovatif untuk kemandirian UKM.
+                            </p>
+                            <span class="font-extrabold text-ufc-gold border-b-2 border-ufc-gold pb-1 hover:border-ufc-green transition duration-300">JELAJAHI DETAIL &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-span-1 sm:col-span-2 lg:col-span-3 flex justify-center mt-8" data-aos="fade-up" data-aos-delay="700">
+                    <div class="luxury-card shadow-lg md:shadow-2xl w-full max-w-xl">
+                        <a href="operasional.html" class="card-inner">
+                            <span class="text-6xl md:text-8xl mb-4 icon-divisi floating"><i class="fas fa-tools"></i></span>
+                            <h3 class="text-3xl md:text-4xl font-playfair font-black mb-2 text-ufc-green">Operasional</h3>
+                            <p class="text-lg md:text-xl font-semibold text-ufc-primary mb-4">The Logistics Master</p>
+                            <p class="text-sm md:text-base text-ufc-secondary mb-6 max-w-md">
+                                Menjamin seluruh kebutuhan lapangan, fasilitas, dan kelancaran teknis setiap acara dan latihan.
+                            </p>
+                            <span class="font-extrabold text-ufc-gold border-b-2 border-ufc-gold pb-1 hover:border-ufc-green transition duration-300">JELAJAHI DETAIL &rarr;</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="py-20 section-gradient-2">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="stat-number text-4xl md:text-5xl font-playfair font-bold text-ufc-gold" data-target="7">0</h3>
+                    <p class="text-lg md:text-xl font-semibold text-ufc-primary mt-2">Divisi Profesional</p>
+                    <p class="text-ufc-secondary text-sm md:text-base">Terstruktur dan fungsional.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="stat-number text-4xl md:text-5xl font-playfair font-bold text-ufc-gold" data-target="50">0</h3>
+                    <p class="text-lg md:text-xl font-semibold text-ufc-primary mt-2">Pengurus Aktif</p>
+                    <p class="text-ufc-secondary text-sm md:text-base">Dedikasi tanpa batas.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="stat-number text-4xl md:text-5xl font-playfair font-bold text-ufc-gold" data-target="100">0</h3>
+                    <p class="text-lg md:text-xl font-semibold text-ufc-primary mt-2">Program Kerja</p>
+                    <p class="text-ufc-secondary text-sm md:text-base">Setiap tahunnya.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 section-gradient-4 text-white relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white drop-shadow">SIAP BERJUANG BERSAMA KAMI?</h2>
+            <a href="prestasi.html" class="bg-ufc-gold text-white font-extrabold py-3 px-8 rounded-full text-lg shadow-2xl glow-btn mb-10 inline-block">
+                LIHAT PENCAPAIAN KAMI
+            </a>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto mb-10 text-left">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-ufc-gold">KONTAK KAMI</h3>
+                    <div class="footer-links space-y-2">
+                        <p class="flex items-start"><i class="fas fa-map-marker-alt mr-3 text-ufc-gold mt-1"></i> Kampus Unsoed, Jl. Prof. Dr. HR. Boenyamin No.708, Grendeng, Purwokerto</p>
+                        <p class="flex items-center"><i class="fas fa-envelope mr-3 text-ufc-gold"></i> ufc@unsoed.ac.id</p>
+                        <p class="flex items-center"><i class="fas fa-phone mr-3 text-ufc-gold"></i> +62 812-3456-7890</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-ufc-gold">TAUTAN CEPAT</h3>
+                    <div class="footer-links space-y-2">
+                        <a href="divisi.html" class="block hover:text-ufc-gold transition duration-300">Divisi</a>
+                        <a href="prestasi.html" class="block hover:text-ufc-gold transition duration-300">Prestasi</a>
+                        <a href="index.html#sejarah" class="block hover:text-ufc-gold transition duration-300">Sejarah</a>
+                        <a href="#divisi" class="block hover:text-ufc-gold transition duration-300">Galeri</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-ufc-gold">IKUTI KAMI</h3>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-facebook text-2xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-tiktok text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 pt-4 border-t border-ufc-light-green">
+                <h3 class="text-2xl font-playfair font-bold text-ufc-gold mb-3">UFC - UNSOED</h3>
+                <p class="text-sm text-ufc-light-gray">&copy; 2025 Unsoed Football Club. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000, 
+            once: false, 
+            mirror: true
+        });
+
+        // SKRIP HEADER DINAMIS
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+                header.classList.remove('header-transparent');
+            } else {
+                header.classList.add('header-transparent');
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Logika Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- SKRIP ANIMASI HITUNG (COUNTER) ---
+        const statSection = document.getElementById('stats');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let hasCounted = false;
+
+        const countUp = (el) => {
+            const target = parseInt(el.dataset.target);
+            let current = 0;
+            const increment = target / 200; // Kecepatan animasi
+            
+            const updateCount = () => {
+                current += increment;
+                if (current < target) {
+                    el.innerText = Math.ceil(current);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    el.innerText = target.toLocaleString('id-ID'); // Format angka
+                    if(el.dataset.target === '7') el.innerText = '7';
+                    if(el.dataset.target === '50') el.innerText = '50+';
+                    if(el.dataset.target === '100') el.innerText = '100+';
+                }
+            };
+            updateCount();
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !hasCounted) {
+                statNumbers.forEach(countUp);
+                hasCounted = true;
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 }); 
+
+        observer.observe(statSection);
+
+        // --- SKRIP 3D TILT EFFECT ---
+        const cards = document.querySelectorAll('.luxury-card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const rotateX = (y / rect.height) * -10; // Max tilt 10 derajat
+                const rotateY = (x / rect.width) * 10;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+
+    </script>
+</body>
+</html>

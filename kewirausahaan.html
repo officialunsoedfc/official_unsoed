@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFC UNSOED - DIVISI KEWIRAUSAHAAN</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        /* Palet Warna Konsisten dari index.html */
+        :root {
+            --ufc-white: #ffffff;
+            --ufc-cream: #f8f9fa;
+            --ufc-light-gray: #e9ecef;
+            --ufc-green: #2e8b57;
+            --ufc-light-green: #3cb371;
+            --ufc-gold: #daa520;
+            --ufc-dark-gold: #b8860b;
+            --ufc-text: #2d3748;
+            --ufc-text-light: #4a5568;
+            --ufc-dark-bg: #1c4532;
+            --ufc-red-accent: #dc143c;
+        }
+        
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .bg-ufc-dark-bg { background-color: var(--ufc-dark-bg); }
+        .bg-ufc-cream { background-color: var(--ufc-cream); }
+        .bg-ufc-light-gray { background-color: var(--ufc-light-gray); }
+        .bg-ufc-green { background-color: var(--ufc-green); }
+        .text-ufc-gold { color: var(--ufc-gold); }
+        .text-ufc-green { color: var(--ufc-green); }
+        .text-ufc-red-accent { color: var(--ufc-red-accent); }
+        .text-ufc-primary { color: var(--ufc-text); }
+        .text-ufc-secondary { color: var(--ufc-text-light); }
+        .border-ufc-gold { border-color: var(--ufc-gold); }
+        .border-ufc-green { border-color: var(--ufc-green); }
+        
+        /* Header dengan efek transparan (Konsisten dengan index.html) */
+        .header-bg {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid var(--ufc-green);
+        }
+
+        /* Card Personil Mewah - Konsisten dengan BPH */
+        .personel-card {
+            transition: all 0.5s ease;
+            background: var(--ufc-white);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--ufc-light-gray);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .personel-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(218, 165, 32, 0.3);
+        }
+
+        /* Foto dengan aksen emas - Konsisten dengan BPH */
+        .photo-container {
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--ufc-green);
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            object-position: center top;
+            transition: all 0.5s ease;
+            filter: grayscale(10%);
+        }
+
+        .personel-card:hover .photo-frame {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+        
+        /* Gradient Border (Konsisten dengan index.html) */
+        .gradient-border {
+            position: relative;
+            background: var(--ufc-white);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        /* List Item Program (Dibuat Emas-Hitam untuk tema uang) */
+        .progja-item {
+            position: relative;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: var(--ufc-text);
+            border-right: 5px solid var(--ufc-gold);
+            transition: all 0.4s ease;
+            color: var(--ufc-white);
+        }
+
+        .progja-item:hover {
+            border-right-color: var(--ufc-light-green);
+            transform: translateX(-5px);
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
+            background-color: #3b4556;
+        }
+        
+        .progja-icon {
+            color: var(--ufc-gold);
+        }
+
+        /* Glassmorphism Cards (Konsisten dengan index.html) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Section Gradients (Konsisten dengan index.html) */
+        .section-gradient-1 {
+            background: linear-gradient(135deg, var(--ufc-cream) 0%, var(--ufc-light-gray) 100%);
+        }
+        
+        .section-gradient-2 {
+            background: linear-gradient(135deg, var(--ufc-light-gray) 0%, var(--ufc-white) 100%);
+        }
+        
+        .section-gradient-3 {
+            background: linear-gradient(135deg, var(--ufc-white) 0%, var(--ufc-cream) 100%);
+        }
+        
+        .section-gradient-4 {
+            background: linear-gradient(135deg, var(--ufc-green) 0%, var(--ufc-light-green) 100%);
+        }
+        
+        .section-gradient-5 {
+            background: linear-gradient(135deg, var(--ufc-cream) 0%, var(--ufc-white) 100%);
+        }
+
+        /* Logo Navbar (Konsisten dengan index.html) */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .personel-card {
+                margin: 0 auto;
+                max-width: 320px;
+            }
+            
+            .photo-frame {
+                height: 260px;
+            }
+            
+            .mobile-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .mobile-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .mobile-text-center {
+                text-align: center;
+            }
+            
+            .mobile-title {
+                font-size: 2.5rem;
+            }
+            
+            .mobile-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .mobile-section-padding {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            
+            .progja-item {
+                padding: 1.25rem;
+            }
+            
+            .entrepreneur-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .photo-frame {
+                height: 240px;
+            }
+            
+            .mobile-title {
+                font-size: 2rem;
+            }
+            
+            .mobile-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .mobile-section-padding {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            
+            .progja-item {
+                padding: 1rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .entrepreneur-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .entrepreneur-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="bg-ufc-cream font-poppins text-ufc-primary">
+    
+    <header class="sticky top-0 z-50 header-bg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <a href="index.html" class="logo-container">
+                <!-- Ganti src dengan path logo UFC Anda -->
+                <img src="img/logo.png" alt="UFC UNSOED Logo" class="logo-image">
+            </a>
+            
+            <button id="hamburger" class="md:hidden text-ufc-green focus:outline-none p-2 rounded hover:bg-ufc-light-gray transition duration-300 z-10">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            
+            <div class="hidden md:flex space-x-10">
+                <a href="divisi.html" class="nav-link font-semibold text-lg text-ufc-green border-b-2 border-ufc-gold">DIVISI</a>
+                <a href="prestasi.html" class="nav-link font-semibold text-lg">PRESTASI</a>
+                <a href="index.html#sejarah" class="nav-link font-semibold text-lg">SEJARAH</a>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-ufc-white py-3 transition-all duration-300 ease-in-out border-b border-ufc-light-gray shadow-lg">
+            <a href="divisi.html" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300 border-b border-ufc-light-gray">DIVISI</a>
+            <a href="prestasi.html" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300 border-b border-ufc-light-gray">PRESTASI</a>
+            <a href="index.html#sejarah" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300">SEJARAH</a>
+        </div>
+    </header>
+
+    <section class="bg-ufc-dark-bg py-16 md:py-24 text-center text-white relative overflow-hidden mobile-padding">
+        <div class="container mx-auto px-4 relative z-10">
+            <span class="text-6xl md:text-8xl block mb-4 md:mb-6 text-ufc-gold animate__animated animate__zoomIn"><i class="fas fa-money-bill-wave"></i></span>
+            <h1 class="text-3xl md:text-5xl lg:text-7xl font-playfair font-black text-ufc-gold tracking-wide drop-shadow-lg mobile-title" data-aos="fade-down" data-aos-duration="1200">
+                DIVISI KEWIRAUSAHAAN
+            </h1>
+            <p class="text-lg md:text-xl lg:text-2xl mt-4 text-ufc-light-gray italic max-w-3xl mx-auto mobile-subtitle" data-aos="fade-up" data-aos-delay="500">
+                "Financial Engine": Mesin Pendanaan Mandiri untuk Kemajuan Organisasi.
+            </p>
+            <div class="h-1 w-24 md:w-32 bg-ufc-gold mx-auto mt-4 md:mt-6 rounded-full" data-aos="fade-up" data-aos-delay="800"></div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 section-gradient-1 mobile-padding mobile-section-padding">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-5xl font-playfair font-bold mb-12 md:mb-16 text-center text-ufc-green drop-shadow mobile-text-center" data-aos="fade-up">Tim Bisnis & Pendanaan</h2>
+            
+            <div class="grid entrepreneur-grid mobile-grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 md:gap-8">
+                
+                <!-- Koordinator -->
+                <div class="personel-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gradient-border h-full">
+                        <div class="photo-container">
+                            <img src="img/pengurus/nabiel.webp" alt="Nabiel Ahmad D.H" class="photo-frame">
+                        </div>
+                        <div class="p-4 md:p-5 text-center flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-ufc-primary font-playfair">Nabiel Ahmad D.H</h3>
+                                <p class="text-base font-semibold text-ufc-gold mt-1">KOORDINATOR</p>
+                                <p class="text-sm text-ufc-secondary mt-2">Peternakan - D1A023091</p>
+                            </div>
+                            <a href="https://instagram.com/nabiel4hmad" target="_blank" class="text-ufc-green text-sm mt-3 inline-block hover:underline">
+                                <i class="fab fa-instagram mr-1"></i> @nabiel4hmad
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Staff Keuangan -->
+                <div class="personel-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gradient-border h-full">
+                        <div class="photo-container">
+                            <img src="img/pengurus/lala.webp" alt="Laelatul Hasanah" class="photo-frame">
+                        </div>
+                        <div class="p-4 md:p-5 text-center flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-ufc-primary font-playfair">Laelatul Hasanah</h3>
+                                <p class="text-base font-semibold text-ufc-green mt-1">STAFF KEUANGAN</p>
+                                <p class="text-sm text-ufc-secondary mt-2">Sosiologi - F1A024044</p>
+                            </div>
+                            <a href="https://instagram.com/lalalaelaa" target="_blank" class="text-ufc-green text-sm mt-3 inline-block hover:underline">
+                                <i class="fab fa-instagram mr-1"></i> @lalalaelaa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Staff Merchandise -->
+                <div class="personel-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gradient-border h-full">
+                        <div class="photo-container">
+                            <img src="img/pengurus/nazla.webp" alt="Nazzla Ryani Ahmad" class="photo-frame">
+                        </div>
+                        <div class="p-4 md:p-5 text-center flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-ufc-primary font-playfair">Nazzla Ryani Ahmad</h3>
+                                <p class="text-base font-semibold text-ufc-green mt-1">STAFF MERCHANDISE</p>
+                                <p class="text-sm text-ufc-secondary mt-2">Ilmu Politik - F1D024022</p>
+                            </div>
+                            <a href="https://instagram.com/nazzlaara" target="_blank" class="text-ufc-green text-sm mt-3 inline-block hover:underline">
+                                <i class="fab fa-instagram mr-1"></i> @nazzlaara
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Staff Kemitraan 1 -->
+                <div class="personel-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="gradient-border h-full">
+                        <div class="photo-container">
+                            <img src="img/pengurus/adam.webp" alt="Adam Ayra Putra" class="photo-frame">
+                        </div>
+                        <div class="p-4 md:p-5 text-center flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-ufc-primary font-playfair">Adam Ayra Putra</h3>
+                                <p class="text-base font-semibold text-ufc-green mt-1">STAFF KEMITRAAN</p>
+                                <p class="text-sm text-ufc-secondary mt-2">Pendidikan Jasmani - 11E023084</p>
+                            </div>
+                            <a href="https://instagram.com/adamarpu" target="_blank" class="text-ufc-green text-sm mt-3 inline-block hover:underline">
+                                <i class="fab fa-instagram mr-1"></i> @adamarpu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Staff Kemitraan 2 -->
+                <div class="personel-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="gradient-border h-full">
+                        <div class="photo-container">
+                            <img src="img/pengurus/iqbal.webp" alt="Muhammad Iqbal Alfaridzi" class="photo-frame">
+                        </div>
+                        <div class="p-4 md:p-5 text-center flex-grow flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-ufc-primary font-playfair">Muhammad Iqbal A.</h3>
+                                <p class="text-base font-semibold text-ufc-green mt-1">STAFF KEMITRAAN</p>
+                                <p class="text-sm text-ufc-secondary mt-2">Pendidikan Jasmani - 11E024125</p>
+                            </div>
+                            <a href="https://instagram.com/iqbllxyz" target="_blank" class="text-ufc-green text-sm mt-3 inline-block hover:underline">
+                                <i class="fab fa-instagram mr-1"></i> @iqbllxyz
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 section-gradient-2 mobile-padding mobile-section-padding">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <h2 class="text-3xl md:text-5xl font-playfair font-bold mb-10 md:mb-14 text-center text-ufc-green drop-shadow mobile-text-center" data-aos="fade-down">INISIATIF PENGGALIAN DANA</h2>
+            
+            <div class="space-y-4 md:space-y-6">
+                
+                <div class="progja-item shadow-xl" data-aos="fade-left" data-aos-delay="100">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-2xl md:text-3xl progja-icon"><i class="fas fa-tshirt"></i></span>
+                        <div>
+                            <h3 class="font-bold text-lg md:text-xl text-ufc-gold">UFC MERCHANDISE EXCLUSIVE</h3>
+                            <p class="text-gray-200 text-sm md:text-base">Desain, produksi, dan distribusi produk *merchandise* resmi (jersey, jaket, topi) dengan kualitas premium.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progja-item shadow-xl" data-aos="fade-left" data-aos-delay="300">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-2xl md:text-3xl progja-icon"><i class="fas fa-handshake"></i></span>
+                        <div>
+                            <h3 class="font-bold text-lg md:text-xl text-ufc-gold">STRATEGIC PARTNERSHIP</h3>
+                            <p class="text-gray-200 text-sm md:text-base">Mencari dan menjalin kemitraan jangka panjang dengan bisnis lokal maupun nasional (sponsorship).</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="progja-item shadow-xl" data-aos="fade-left" data-aos-delay="500">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-2xl md:text-3xl progja-icon"><i class="fas fa-utensils"></i></span>
+                        <div>
+                            <h3 class="font-bold text-lg md:text-xl text-ufc-gold">F&B BOOTH MANAGEMENT</h3>
+                            <p class="text-gray-200 text-sm md:text-base">Mengelola *stand* penjualan makanan dan minuman saat ada turnamen besar kampus atau *event* universitas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progja-item shadow-xl" data-aos="fade-left" data-aos-delay="700">
+                    <div class="flex items-center space-x-4">
+                        <span class="text-2xl md:text-3xl progja-icon"><i class="fas fa-chart-line"></i></span>
+                        <div>
+                            <h3 class="font-bold text-lg md:text-xl text-ufc-gold">FINANCIAL REPORTING</h3>
+                            <p class="text-gray-200 text-sm md:text-base">Membuat laporan keuangan rutin dan transparan untuk BPH dan seluruh anggota UKM.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 md:py-16 section-gradient-4 text-white relative overflow-hidden mobile-padding">
+        <div class="container mx-auto px-4 text-center">
+            <a href="divisi.html" class="font-extrabold text-ufc-gold hover:text-ufc-white transition duration-300 flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
+                <span class="text-sm md:text-base">KEMBALI KE DIVISI GALLERY</span>
+            </a>
+            <p class="text-xs md:text-sm text-ufc-light-gray mt-4 md:mt-6">&copy; 2025 Unsoed Football Club. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ 
+            duration: 1000, 
+            once: false, 
+            mirror: true,
+            offset: 100
+        });
+        
+        // Hamburger Menu Logic
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('#mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UFC UNSOED - RUMAH PARA PEJUANG</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Palet Warna (Konsisten) */
+        :root {
+            --ufc-white: #ffffff;
+            --ufc-cream: #f8f9fa;
+            --ufc-light-gray: #e9ecef;
+            --ufc-green: #2e8b57;
+            --ufc-light-green: #3cb371;
+            --ufc-gold: #daa520;
+            --ufc-dark-gold: #b8860b;
+            --ufc-text: #2d3748;
+            --ufc-text-light: #4a5568;
+        }
+        
+        .font-playfair { font-family: 'Playfair Display', serif; }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .bg-ufc-cream { background-color: var(--ufc-cream); }
+        .bg-ufc-light-gray { background-color: var(--ufc-light-gray); }
+        .bg-ufc-green { background-color: var(--ufc-green); }
+        .text-ufc-gold { color: var(--ufc-gold); }
+        .text-ufc-primary { color: var(--ufc-text); }
+        .text-ufc-secondary { color: var(--ufc-text-light); }
+        .border-ufc-gold { border-color: var(--ufc-gold); }
+        .border-ufc-green { border-color: var(--ufc-green); }
+        
+        /* 1. HEADER DINAMIS */
+        .header-transparent {
+            background-color: transparent;
+            transition: all 0.3s ease-in-out;
+        }
+        .header-transparent .nav-link {
+            color: var(--ufc-white);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .header-transparent .nav-link:hover { color: var(--ufc-white); }
+        .header-transparent .nav-link::after { background: var(--ufc-white); }
+        
+        .header-scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-bottom: 2px solid var(--ufc-green);
+            transition: all 0.3s ease-in-out;
+        }
+        .header-scrolled .nav-link {
+            color: var(--ufc-text-light);
+            text-shadow: none;
+        }
+        .header-scrolled .nav-link:hover { color: var(--ufc-green); }
+        .header-scrolled .nav-link::after { background: var(--ufc-green); }
+
+        .nav-link {
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover::after, .nav-link-active::after {
+            width: 100%;
+        }
+        
+        /* 2. HERO PARALLAX */
+        .hero-bg {
+            background-image: 
+                linear-gradient(135deg, rgba(46, 139, 87, 0.7) 0%, rgba(218, 165, 32, 0.5) 100%),
+                url('img/main.webp');
+            background-attachment: fixed; 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Panah Scroll Down */
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+        .scroll-down-arrow svg {
+            width: 24px;
+            height: 24px;
+            color: white;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Tombol Glow */
+        .glow-btn {
+            background: linear-gradient(135deg, var(--ufc-gold) 0%, var(--ufc-dark-gold) 100%);
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        /* Gradient Border & Card Hover */
+        .card-hover {
+            transition: all 0.4s ease;
+            background: var(--ufc-white);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--ufc-light-gray);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .gradient-border {
+            position: relative;
+            background: var(--ufc-white);
+            padding: 1px;
+            border-radius: 12px;
+        }
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--ufc-gold), var(--ufc-green));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        /* 3. EFEK 3D TILT */
+        .card-3d-wrapper {
+            perspective: 1000px;
+        }
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+        .card-3d:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Pola Rumput */
+        .grass-pattern {
+            background-color: #2e8b57;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.2) 2%, transparent 40%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 2%, transparent 40%);
+            background-size: 60px 60px;
+        }
+
+        /* 4. GALERI LIGHTBOX */
+        .gallery-item {
+            cursor: zoom-in;
+        }
+        .lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: none; /* Diubah oleh JS */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+        .lightbox-content img {
+            width: 100%;
+            height: auto;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -1rem;
+            right: -1rem;
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            line-height: 1;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+        .lightbox-close:hover {
+            transform: scale(1.1);
+        }
+        
+        /* 5. ACCORDION FAQ */
+        .faq-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            padding: 0 1.25rem;
+        }
+        .faq-toggle::after {
+            content: '▼';
+            font-size: 0.8rem;
+            color: var(--ufc-gold);
+            transition: transform 0.3s ease;
+        }
+        .faq-toggle.active + .faq-content {
+            max-height: 200px; 
+            padding: 0 1.25rem 1.25rem 1.25rem;
+        }
+        .faq-toggle.active::after {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .mobile-title {
+                font-size: 2.8rem; 
+                line-height: 1.1;
+            }
+            .hero-bg {
+                background-attachment: scroll; /* Matikan parallax */
+            }
+            .scroll-down-arrow {
+                bottom: 1.5rem;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--ufc-cream); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--ufc-gold), var(--ufc-dark-gold));
+            border-radius: 4px;
+        }
+
+        /* ELEMEN BARU YANG DITAMBAHKAN */
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--ufc-green), var(--ufc-light-green));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--ufc-gold);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Particle Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--ufc-green);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: var(--ufc-white);
+            border: 4px solid var(--ufc-green);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            right: 30px;
+            border: medium solid var(--ufc-green);
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent var(--ufc-green);
+        }
+        
+        .right::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            left: 30px;
+            border: medium solid var(--ufc-green);
+            border-width: 10px 10px 10px 0;
+            border-color: transparent var(--ufc-green) transparent transparent;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid var(--ufc-green);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--ufc-green) transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+        
+        /* Floating Elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 15px); }
+            100% { transform: translate(0, -0px); }
+        }
+        
+        /* Text Animation */
+        .text-animate {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end);
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        /* Enhanced Hero Section */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(46, 139, 87, 0.7) 0%, rgba(218, 165, 32, 0.5) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Improved Footer */
+        .footer-links a {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--ufc-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Section Gradients */
+        .section-gradient-1 {
+            background: linear-gradient(135deg, var(--ufc-cream) 0%, var(--ufc-light-gray) 100%);
+        }
+        
+        .section-gradient-2 {
+            background: linear-gradient(135deg, var(--ufc-light-gray) 0%, var(--ufc-white) 100%);
+        }
+        
+        .section-gradient-3 {
+            background: linear-gradient(135deg, var(--ufc-white) 0%, var(--ufc-cream) 100%);
+        }
+        
+        .section-gradient-4 {
+            background: linear-gradient(135deg, var(--ufc-green) 0%, var(--ufc-light-green) 100%);
+        }
+        
+        .section-gradient-5 {
+            background: linear-gradient(135deg, var(--ufc-cream) 0%, var(--ufc-white) 100%);
+        }
+        
+        /* Logo Navbar */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-image {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="bg-ufc-cream font-poppins text-ufc-primary">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader mb-4"></div>
+        <h2 class="text-white text-2xl font-playfair">UFC UNSOED</h2>
+        <p class="text-white mt-2">Loading...</p>
+    </div>
+
+    <header id="main-header" class="sticky top-0 z-50 header-transparent">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            
+            <a href="index.html" class="logo-container z-10">
+                <!-- Ganti src dengan path logo UFC Anda -->
+                <img src="img/logo.png" alt="UFC UNSOED Logo" class="logo-image">
+            </a>
+            
+            <button id="hamburger" class="md:hidden text-ufc-green focus:outline-none p-2 rounded hover:bg-ufc-light-gray transition duration-300 z-10">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            
+            <div class="hidden md:flex space-x-10">
+                <a href="divisi.html" class="nav-link font-semibold text-lg">DIVISI</a>
+                <a href="prestasi.html" class="nav-link font-semibold text-lg">PRESTASI</a>
+                <a href="#sejarah" class="nav-link font-semibold text-lg">SEJARAH</a>
+            </div>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-ufc-white py-3 transition-all duration-300 ease-in-out border-b border-ufc-light-gray shadow-lg">
+            <a href="divisi.html" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300 border-b border-ufc-light-gray">DIVISI</a>
+            <a href="prestasi.html" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300 border-b border-ufc-light-gray">PRESTASI</a>
+            <a href="#sejarah" class="block py-3 px-6 text-ufc-secondary hover:bg-ufc-light-gray font-semibold transition duration-300">SEJARAH</a>
+        </div>
+    </header>
+
+    <section class="hero-bg h-screen flex items-center justify-center text-center relative">
+        <div class="hero-overlay"></div>
+        <div id="particles-js"></div>
+        <div class="hero-content max-w-4xl px-6 relative z-10">
+            <h1 class="text-6xl mobile-title md:text-8xl font-playfair font-black mb-4 text-white tracking-wider drop-shadow-lg" data-aos="fade-down" data-aos-duration="1200">
+                RUMAH PARA PEJUANG
+            </h1>
+            <p class="text-xl md:text-3xl font-light italic mb-10 text-white drop-shadow" data-aos="fade-up" data-aos-delay="400">
+                "Dedikasi, Disiplin, dan Kebanggaan."
+            </p>
+            <a href="divisi.html" class="bg-ufc-gold text-white font-extrabold py-4 px-12 rounded-full text-xl shadow-2xl glow-btn" data-aos="fade-up" data-aos-delay="600">
+                JELAJAHI KEPENGURUSAN
+            </a>
+        </div>
+        <a href="#visi-misi" class="scroll-down-arrow" aria-label="Scroll down">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+            </svg>
+        </a>
+    </section>
+
+    <section id="visi-misi" class="py-24 section-gradient-1 relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-5xl font-playfair font-bold mb-16 text-ufc-green drop-shadow" data-aos="fade-down">Visi dan Misi Utama</h2>
+            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                
+                <div class="card-3d-wrapper" data-aos="fade-right" data-aos-delay="300">
+                    <div class="gradient-border card-3d">
+                        <div class="p-8 rounded-xl card-hover h-full">
+                            <span class="text-6xl mb-4 block text-ufc-gold floating"><i class="fas fa-eye"></i></span>
+                            <h3 class="text-3xl font-playfair font-bold mb-3 text-ufc-primary">VISI</h3>
+                            <p class="text-ufc-secondary text-lg">Menjadi UKM Sepak Bola dan Futsal terdepan di Jawa Tengah yang berintegritas tinggi dan disegani di kancah nasional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-3d-wrapper" data-aos="fade-left" data-aos-delay="500">
+                    <div class="gradient-border card-3d">
+                        <div class="p-8 rounded-xl card-hover h-full">
+                            <span class="text-6xl mb-4 block text-ufc-gold floating"><i class="fas fa-bullseye"></i></span>
+                            <h3 class="text-3xl font-playfair font-bold mb-3 text-ufc-primary">MISI</h3>
+                            <p class="text-ufc-secondary text-lg">Menerapkan sistem pembinaan atlet yang profesional, disiplin, dan menciptakan lingkungan kekeluargaan yang suportif.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="py-20 section-gradient-2">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="stat-number text-5xl font-playfair font-bold text-ufc-gold" data-target="7">0</h3>
+                    <p class="text-xl font-semibold text-ufc-primary mt-2">Divisi Profesional</p>
+                    <p class="text-ufc-secondary">Terstruktur dan fungsional.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="stat-number text-5xl font-playfair font-bold text-ufc-gold" data-target="100">0</h3>
+                    <p class="text-xl font-semibold text-ufc-primary mt-2">Anggota & Atlet</p>
+                    <p class="text-ufc-secondary">Talenta dari berbagai fakultas.</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="stat-number text-5xl font-playfair font-bold text-ufc-gold" data-target="2010">0</h3>
+                    <p class="text-xl font-semibold text-ufc-primary mt-2">Tahun Berdiri</p>
+                    <p class="text-ufc-secondary">Membangun legasi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sejarah" class="py-24 section-gradient-3 relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-4xl font-playfair font-bold text-center mb-16 text-ufc-green drop-shadow" data-aos="fade-down">SEJARAH UFC UNSOED</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="gradient-border">
+                        <div class="p-6 bg-white rounded-lg card-hover">
+                            <h3 class="text-xl font-bold text-ufc-primary mb-2">2010</h3>
+                            <p class="text-ufc-secondary">Pendirian UFC UNSOED oleh sekelompok mahasiswa yang memiliki passion terhadap sepak bola dan futsal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="gradient-border">
+                        <div class="p-6 bg-white rounded-lg card-hover">
+                            <h3 class="text-xl font-bold text-ufc-primary mb-2">2012</h3>
+                            <p class="text-ufc-secondary">Pertama kali mengikuti kompetisi antar kampus dan meraih juara 3 di turnamen lokal.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="gradient-border">
+                        <div class="p-6 bg-white rounded-lg card-hover">
+                            <h3 class="text-xl font-bold text-ufc-primary mb-2">2015</h3>
+                            <p class="text-ufc-secondary">Restrukturisasi organisasi dengan pembentukan 7 divisi untuk meningkatkan efektivitas kerja.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="gradient-border">
+                        <div class="p-6 bg-white rounded-lg card-hover">
+                            <h3 class="text-xl font-bold text-ufc-primary mb-2">2018</h3>
+                            <p class="text-ufc-secondary">Mengembangkan program pembinaan atlet yang lebih sistematis dan profesional.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="gradient-border">
+                        <div class="p-6 bg-white rounded-lg card-hover">
+                            <h3 class="text-xl font-bold text-ufc-primary mb-2">2022</h3>
+                            <p class="text-ufc-secondary">Mencapai prestasi tertinggi dengan menjadi juara umum di kompetisi regional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kekuatan" class="py-24 section-gradient-4 text-white relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-5xl font-playfair font-bold mb-14 text-white drop-shadow" data-aos="fade-down">TIGA PILAR KEKUATAN</h2>
+            <div class="grid sm:grid-cols-3 gap-10 max-w-6xl mx-auto">
+                
+                <div class="card-3d-wrapper" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="glass-card p-8 rounded-xl card-hover h-full">
+                        <span class="text-5xl mb-4 block text-white"><i class="fas fa-users"></i></span>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">MANAJEMEN SOLID</h3>
+                        <p class="text-sm text-white">Dikelola oleh 7 Divisi yang bekerja secara profesional dan terstruktur.</p>
+                    </div>
+                </div>
+                <div class="card-3d-wrapper" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="glass-card p-8 rounded-xl card-hover h-full">
+                        <span class="text-5xl mb-4 block text-white"><i class="fas fa-gem"></i></span>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">PENGEMBANGAN TALENTA</h3>
+                        <p class="text-sm text-white">Mencari dan membina talenta berbakat dari seluruh fakultas di Unsoed.</p>
+                    </div>
+                </div>
+                <div class="card-3d-wrapper" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="glass-card p-8 rounded-xl card-hover h-full">
+                        <span class="text-5xl mb-4 block text-white"><i class="fas fa-chart-line"></i></span>
+                        <h3 class="text-2xl font-semibold mb-3 text-white">PEMBINAAN MODERN</h3>
+                        <p class="text-sm text-white">Menggunakan analisis dan strategi kepelatihan modern untuk hasil maksimal.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galeri" class="py-24 section-gradient-5 relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-4xl font-playfair font-bold text-center mb-14 text-ufc-green drop-shadow" data-aos="fade-down">GALERI MOMEN PENGURUS</h2>
+            
+            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
+               <a href="img/satu.jpg" class="gallery-item overflow-hidden rounded-lg shadow-xl gradient-border" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="img/satu.jpg" alt="Kegiatan Tim 1" class="w-full h-56 object-cover hover:scale-110 transition duration-700">
+                </a>
+                <a href="img/dua.jpg" class="gallery-item overflow-hidden rounded-lg shadow-xl gradient-border" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="img/dua.jpg" alt="Kegiatan Tim 2" class="w-full h-56 object-cover hover:scale-110 transition duration-700">
+                </a>
+                <a href="img/tiga.jpg" class="gallery-item overflow-hidden rounded-lg shadow-xl gradient-border" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="img/tiga.jpg" alt="Kegiatan Tim 3" class="w-full h-56 object-cover hover:scale-110 transition duration-700">
+                </a>
+                <a href="img/empat.jpg" class="gallery-item overflow-hidden rounded-lg shadow-xl gradient-border" data-aos="zoom-in" data-aos-delay="700">
+                    <img src="img/empat.jpg" alt="Kegiatan Tim 4" class="w-full h-56 object-cover hover:scale-110 transition duration-700">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 section-gradient-1 relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl relative z-10">
+            <h2 class="text-4xl font-playfair font-bold text-center mb-12 text-ufc-green drop-shadow" data-aos="fade-down">PERTANYAAN UMUM</h2>
+            
+            <div class="space-y-4">
+                <div class="card-3d-wrapper" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gradient-border card-3d">
+                        <div class="bg-white rounded-lg card-hover">
+                            <button class="faq-toggle p-5">
+                                <h3 class="text-xl font-semibold text-left text-ufc-primary">Apakah ada seleksi untuk bergabung?</h3>
+                            </button>
+                            <div class="faq-content">
+                                <p class="text-ufc-secondary pb-4">Ya, kami melakukan Rekrutmen Terbuka dengan beberapa tahap seleksi (fisik, skill, dan wawancara) untuk memastikan standar kualitas tim tetap terjaga.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-3d-wrapper" data-aos="fade-up" data-aos-delay="300">
+                    <div class="gradient-border card-3d">
+                        <div class="bg-white rounded-lg card-hover">
+                            <button class="faq-toggle p-5">
+                                <h3 class="text-xl font-semibold text-left text-ufc-primary">Fakultas mana saja yang boleh mendaftar?</h3>
+                            </button>
+                            <div class="faq-content">
+                                <p class="text-ufc-secondary pb-4">UKM UFC terbuka untuk **seluruh** mahasiswa aktif Unsoed, tanpa batasan fakultas atau jurusan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-3d-wrapper" data-aos="fade-up" data-aos-delay="500">
+                    <div class="gradient-border card-3d">
+                        <div class="bg-white rounded-lg card-hover">
+                            <button class="faq-toggle p-5">
+                                <h3 class="text-xl font-semibold text-left text-ufc-primary">Apa saja program kerja terbesar UKM UFC?</h3>
+                            </button>
+                            <div class="faq-content">
+                                <p class="text-ufc-secondary pb-4">Kami rutin mengadakan Turnamen Internal (UFC Cup), Latihan Bersama Antar Kampus, dan mengikuti kompetisi resmi tingkat regional dan nasional (LIMA, POMNAS).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 section-gradient-4 text-white relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-4xl font-playfair font-bold mb-6 text-white drop-shadow">SIAP BERGABUNG DENGAN KAMI?</h2>
+            <a href="divisi.html" class="bg-ufc-gold text-white font-extrabold py-3 px-8 rounded-full text-lg shadow-2xl glow-btn mb-10 inline-block">
+                HUBUNGI KAMI SEKARANG
+            </a>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-10 text-left">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-ufc-gold">KONTAK KAMI</h3>
+                    <div class="footer-links space-y-2">
+                        <p class="flex items-center"><i class="fas fa-map-marker-alt mr-3 text-ufc-gold"></i> Kampus Unsoed, Jl. Prof. Dr. HR. Boenyamin No.708, Grendeng, Purwokerto</p>
+                        <p class="flex items-center"><i class="fas fa-envelope mr-3 text-ufc-gold"></i> ufc@unsoed.ac.id</p>
+                        <p class="flex items-center"><i class="fas fa-phone mr-3 text-ufc-gold"></i> +62 812-3456-7890</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-ufc-gold">TAUTAN CEPAT</h3>
+                    <div class="footer-links space-y-2">
+                        <a href="divisi.html" class="block hover:text-ufc-gold transition duration-300">Divisi</a>
+                        <a href="prestasi.html" class="block hover:text-ufc-gold transition duration-300">Prestasi</a>
+                        <a href="#sejarah" class="block hover:text-ufc-gold transition duration-300">Sejarah</a>
+                        <a href="#galeri" class="block hover:text-ufc-gold transition duration-300">Galeri</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4 text-ufc-gold">IKUTI KAMI</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-facebook text-2xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </a>
+                        <a href="#" target="_blank" class="text-white hover:text-ufc-gold transition duration-300 transform hover:scale-110">
+                            <i class="fab fa-tiktok text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 pt-4 border-t border-ufc-light-green">
+                <h3 class="text-2xl font-playfair font-bold text-ufc-gold mb-3">UFC - UNSOED</h3>
+                <p class="text-sm text-ufc-light-gray">&copy; 2025 Unsoed Football Club. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img src="" alt="Galeri UFC diperbesar">
+        </div>
+    </div>
+
+    <!-- Script untuk Particle Background -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inisialisasi AOS
+        AOS.init({
+            duration: 1000, 
+            once: false, 
+            mirror: true
+        });
+
+        // Loading Screen
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                loadingScreen.style.visibility = 'hidden';
+            }, 1000);
+        });
+
+        // Particle Background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ffffff",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            }
+        });
+
+        // --- SKRIP HEADER DINAMIS ---
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+                header.classList.remove('header-transparent');
+            } else {
+                header.classList.add('header-transparent');
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // --- SKRIP HAMBURGER MENU ---
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobile-menu');
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // --- SKRIP ACCORDION FAQ ---
+        const faqToggles = document.querySelectorAll('.faq-toggle');
+        faqToggles.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                faqToggles.forEach(otherToggle => {
+                    if (otherToggle !== toggle && otherToggle.classList.contains('active')) {
+                        otherToggle.classList.remove('active');
+                    }
+                });
+                toggle.classList.toggle('active');
+            });
+        });
+
+        // --- SKRIP GALERI LIGHTBOX ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('img');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightboxClose = document.querySelector('.lightbox-close');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', e => {
+                e.preventDefault();
+                const imgSrc = item.getAttribute('href');
+                lightboxImg.setAttribute('src', imgSrc);
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Mencegah scroll body
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.setAttribute('src', '');
+            document.body.style.overflow = 'auto'; // Kembalikan scroll body
+        }
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', e => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // --- SKRIP ANIMASI HITUNG (COUNTER) ---
+        const statSection = document.getElementById('stats');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let hasCounted = false;
+
+        const countUp = (el) => {
+            const target = parseInt(el.dataset.target);
+            let current = 0;
+            const increment = target / 200; // Kecepatan animasi
+            
+            const updateCount = () => {
+                current += increment;
+                if (current < target) {
+                    el.innerText = Math.ceil(current);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    el.innerText = target.toLocaleString('id-ID'); // Format angka
+                    if(el.dataset.target === '7') el.innerText = '7+';
+                    if(el.dataset.target === '100') el.innerText = '100+';
+                }
+            };
+            updateCount();
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !hasCounted) {
+                statNumbers.forEach(countUp);
+                hasCounted = true;
+                observer.disconnect();
+            }
+        }, { threshold: 0.5 }); 
+
+        observer.observe(statSection);
+
+        // --- SKRIP 3D TILT EFFECT ---
+        const cards = document.querySelectorAll('.card-3d');
+        const wrappers = document.querySelectorAll('.card-3d-wrapper');
+
+        wrappers.forEach(wrapper => {
+            wrapper.addEventListener('mousemove', e => {
+                const card = wrapper.querySelector('.card-3d');
+                const rect = wrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const rotateX = (y / rect.height) * -10; // Max tilt 10 derajat
+                const rotateY = (x / rect.width) * 10;
+                
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+                const card = wrapper.querySelector('.card-3d');
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+
+    </script>
+</body>
+</html>
