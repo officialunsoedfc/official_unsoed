@@ -243,21 +243,56 @@
             left: -10px;
         }
         
-        /* Responsif untuk Timeline di Mobile */
+        /* Responsif untuk Timeline di Mobile - PERBAIKAN */
         @media (max-width: 768px) {
             .timeline-container::after {
-                left: 31px; /* Geser garis ke kiri */
+                left: 20px; /* Geser garis ke kiri */
             }
             .timeline-item {
                 width: 100%;
-                padding-left: 70px; /* Beri ruang untuk garis */
-                padding-right: 25px;
+                padding-left: 50px; /* Beri ruang untuk garis */
+                padding-right: 15px;
             }
             .timeline-left, .timeline-right {
                 left: 0;
             }
             .timeline-left::after, .timeline-right::after {
-                left: 21px; /* Posisikan bulatan di atas garis */
+                left: 10px; /* Posisikan bulatan di atas garis */
+            }
+            
+            /* Perbaikan ukuran teks untuk mobile */
+            .mobile-title {
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+            }
+            
+            /* Perbaikan tombol untuk mobile */
+            .glow-btn {
+                padding: 12px 24px;
+                font-size: 1rem;
+            }
+            
+            /* Perbaikan spacing section untuk mobile */
+            section {
+                padding-top: 3rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            /* Perbaikan grid galeri untuk mobile */
+            .gallery-grid {
+                grid-template-columns: 1fr !important;
+                height: auto !important;
+                gap: 1rem !important;
+            }
+            
+            .gallery-item {
+                height: 250px;
+            }
+            
+            /* Perbaikan footer untuk mobile */
+            .footer-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
             }
         }
         
@@ -265,13 +300,24 @@
         @media (max-width: 768px) {
             .hero-bg {
                 background-attachment: scroll; /* Matikan parallax di mobile */
-            }
-            .mobile-title {
-                font-size: 2.8rem; 
-                line-height: 1.1;
+                min-height: 80vh;
+                height: auto;
+                padding: 4rem 0;
             }
             .scroll-down-arrow {
                 bottom: 1.5rem;
+            }
+        }
+        
+        /* Perbaikan tambahan untuk tablet */
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                height: auto !important;
+            }
+            
+            .gallery-item:first-child {
+                grid-column: span 2;
             }
         }
         
@@ -441,7 +487,7 @@
 
     <section id="timeline" class="py-24 section-gradient-1 relative overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <h2 class="text-5xl font-playfair font-bold mb-16 text-center text-ufc-green drop-shadow" data-aos="fade-down">REKAM JEJAK KEJUARAAN</h2>
+            <h2 class="text-4xl md:text-5xl font-playfair font-bold mb-16 text-center text-ufc-green drop-shadow" data-aos="fade-down">REKAM JEJAK KEJUARAAN</h2>
             
             <div class="timeline-container">
                 
@@ -501,18 +547,18 @@
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 <div data-aos="fade-up" data-aos-delay="100">
-                    <h3 class="stat-number text-5xl font-playfair font-bold text-ufc-gold" data-target="15">0</h3>
-                    <p class="text-xl font-semibold text-ufc-primary mt-2">Kejuaraan Dimenangkan</p>
+                    <h3 class="stat-number text-4xl md:text-5xl font-playfair font-bold text-ufc-gold" data-target="15">0</h3>
+                    <p class="text-lg md:text-xl font-semibold text-ufc-primary mt-2">Kejuaraan Dimenangkan</p>
                     <p class="text-ufc-secondary">Dari tingkat lokal hingga nasional.</p>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="stat-number text-5xl font-playfair font-bold text-ufc-gold" data-target="50">0</h3>
-                    <p class="text-xl font-semibold text-ufc-primary mt-2">Medali & Piala</p>
+                    <h3 class="stat-number text-4xl md:text-5xl font-playfair font-bold text-ufc-gold" data-target="50">0</h3>
+                    <p class="text-lg md:text-xl font-semibold text-ufc-primary mt-2">Medali & Piala</p>
                     <p class="text-ufc-secondary">Bukti dedikasi dan kerja keras.</p>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="300">
-                    <h3 class="stat-number text-5xl font-playfair font-bold text-ufc-gold" data-target="10">0</h3>
-                    <p class="text-xl font-semibold text-ufc-primary mt-2">Tahun Prestasi</p>
+                    <h3 class="stat-number text-4xl md:text-5xl font-playfair font-bold text-ufc-gold" data-target="10">0</h3>
+                    <p class="text-lg md:text-xl font-semibold text-ufc-primary mt-2">Tahun Prestasi</p>
                     <p class="text-ufc-secondary">Konsisten berprestasi sejak 2012.</p>
                 </div>
             </div>
@@ -521,9 +567,9 @@
 
     <section id="galeri" class="py-24 section-gradient-3 relative overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <h2 class="text-4xl font-playfair font-bold text-center mb-14 text-ufc-green drop-shadow" data-aos="fade-down">FOTO PENGURUS</h2>
+            <h2 class="text-3xl md:text-4xl font-playfair font-bold text-center mb-14 text-ufc-green drop-shadow" data-aos="fade-down">FOTO PENGURUS</h2>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-6 h-[400px] md:h-[600px]">
+            <div class="gallery-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-6 h-[400px] md:h-[600px]">
               <a href="img/utama.webp" class="gallery-item overflow-hidden rounded-lg shadow-xl gradient-border md:col-span-2 md:row-span-2" data-aos="zoom-in" data-aos-delay="100">
                     <img src="img/utama.webp" alt="Tim Juara 1" class="w-full h-full object-cover hover:scale-110 transition duration-700">
                 </a>
@@ -542,12 +588,12 @@
 
     <footer class="py-16 section-gradient-4 text-white relative overflow-hidden">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h2 class="text-4xl font-playfair font-bold mb-6 text-white drop-shadow">SIAP BERJUANG BERSAMA KAMI?</h2>
+            <h2 class="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white drop-shadow">SIAP BERJUANG BERSAMA KAMI?</h2>
             <a href="divisi.html" class="bg-ufc-gold text-white font-extrabold py-3 px-8 rounded-full text-lg shadow-2xl glow-btn mb-10 inline-block">
                 HUBUNGI KAMI SEKARANG
             </a>
             
-            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-10 text-left">
+            <div class="footer-grid grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-10 text-left">
                 <div>
                     <h3 class="text-xl font-bold mb-4 text-ufc-gold">KONTAK KAMI</h3>
                     <div class="footer-links space-y-2">
