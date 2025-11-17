@@ -263,7 +263,7 @@
             transform: rotate(180deg);
         }
 
-        /* Mobile Responsiveness Improvements */
+        /* Mobile */
         @media (max-width: 768px) {
             .mobile-title {
                 font-size: 2.8rem; 
@@ -274,134 +274,6 @@
             }
             .scroll-down-arrow {
                 bottom: 1.5rem;
-            }
-            
-            /* Perbaikan layout untuk mobile */
-            .container {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-            
-            /* Perbaikan ukuran font untuk mobile */
-            h1 {
-                font-size: 2.5rem !important;
-            }
-            
-            h2 {
-                font-size: 2rem !important;
-            }
-            
-            h3 {
-                font-size: 1.5rem !important;
-            }
-            
-            /* Perbaikan padding dan margin untuk mobile */
-            .py-24 {
-                padding-top: 3rem !important;
-                padding-bottom: 3rem !important;
-            }
-            
-            .py-20 {
-                padding-top: 2.5rem !important;
-                padding-bottom: 2.5rem !important;
-            }
-            
-            .py-16 {
-                padding-top: 2rem !important;
-                padding-bottom: 2rem !important;
-            }
-            
-            /* Perbaikan grid untuk mobile */
-            .grid-cols-1 {
-                grid-template-columns: 1fr !important;
-            }
-            
-            /* Perbaikan tombol untuk mobile */
-            .glow-btn {
-                padding: 0.75rem 1.5rem !important;
-                font-size: 1rem !important;
-            }
-            
-            /* Perbaikan timeline untuk mobile */
-            .timeline::after {
-                left: 31px;
-            }
-            
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-            
-            .timeline-item::before {
-                left: 60px;
-                border: medium solid var(--ufc-green);
-                border-width: 10px 10px 10px 0;
-                border-color: transparent var(--ufc-green) transparent transparent;
-            }
-            
-            .left::after, .right::after {
-                left: 18px;
-            }
-            
-            .right {
-                left: 0%;
-            }
-            
-            /* Perbaikan galeri untuk mobile */
-            .gallery-item img {
-                height: 200px !important;
-            }
-            
-            /* Perbaikan footer untuk mobile */
-            .footer-links {
-                text-align: center;
-            }
-            
-            /* Optimasi animasi untuk performa mobile */
-            .card-3d-wrapper {
-                perspective: none;
-            }
-            
-            .card-3d:hover {
-                transform: none;
-            }
-            
-            /* Nonaktifkan efek hover pada mobile */
-            @media (hover: none) {
-                .card-hover:hover {
-                    transform: none;
-                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-                }
-                
-                .glow-btn:hover {
-                    transform: none;
-                    box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
-                }
-            }
-        }
-        
-        /* Perbaikan untuk layar sangat kecil */
-        @media (max-width: 480px) {
-            .mobile-title {
-                font-size: 2rem !important;
-            }
-            
-            .hero-content {
-                padding: 0 1rem;
-            }
-            
-            .py-24 {
-                padding-top: 2rem !important;
-                padding-bottom: 2rem !important;
-            }
-            
-            .stat-number {
-                font-size: 3rem !important;
-            }
-            
-            .gallery-item img {
-                height: 150px !important;
             }
         }
         
@@ -539,6 +411,33 @@
             left: -12px;
         }
         
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::before {
+                left: 60px;
+                border: medium solid var(--ufc-green);
+                border-width: 10px 10px 10px 0;
+                border-color: transparent var(--ufc-green) transparent transparent;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+        
         /* Floating Elements */
         .floating {
             animation: floating 3s ease-in-out infinite;
@@ -636,17 +535,6 @@
             height: 50px;
             width: auto;
             object-fit: contain;
-        }
-        
-        /* Touch-friendly improvements */
-        button, a {
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        /* Optimasi gambar untuk mobile */
-        img {
-            max-width: 100%;
-            height: auto;
         }
     </style>
 </head>
